@@ -1,9 +1,22 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import articles from "./article-content";
 import NotFoundPage from "./NotFoundPage";
+import axios from 'axios';
 
 const ArticlePage = () => {
+    const [articleInfo, setArticleInfo] = useState({ upvotes: 0 , comments:[]})
     const {articleId} =  useParams();
+    
+    useEffect( () =>{
+        const loadArticleInfo = async() => {
+            const response = await axios.get(`/api/articles/${articleId}`);
+            const newArticleInfo = response.data;
+            setArticleInfo(newArticleInfo);
+        }
+        loadArticleInfo();
+    }, []);
+
     const article = articles.find(article => article.name === articleId)
 
     if(!article){
@@ -12,6 +25,7 @@ const ArticlePage = () => {
     return (
         <>
         <h1> {article.title}</h1>
+        <p> this article has {articleInfo.upvotes} upvotes</p>
         {article.content.map(paragraph => (
             <p> {paragraph}</p>
         ))}
@@ -20,3 +34,7 @@ const ArticlePage = () => {
 }
 
 export default ArticlePage;
+
+
+// const response = await axios.get('http://localhost:8002/api/articles/learn-react'); // make req to server, async
+// const data = response.data;
