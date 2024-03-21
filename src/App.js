@@ -6,6 +6,8 @@ import AboutPage from './pages/AboutPage';
 import ListPage from './pages/ListPage';
 import ArticlePage from './pages/ArticlePage';
 import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from './pages/loginPage';
+import CreateAccount from './pages/CreateAccount';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/about" element={<AboutPage/>} />
         <Route path="/articles" element={<ListPage/>} />
         <Route path="/articles/:articleId" element={<ArticlePage/>} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/create-account" element={<CreateAccount/>} />
         <Route path="*" element={<NotFoundPage/>} />
         </Routes>
       </div>
